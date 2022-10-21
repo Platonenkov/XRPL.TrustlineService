@@ -1,6 +1,6 @@
 # XRPL.TrastlineService
 XRPL Trastline service
-```Install-Package XRPL.TrastlineService -Version 1.0.0.0```
+```Install-Package XRPL.TrustlineService -Version 1.0.0.0```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
 ```C#
