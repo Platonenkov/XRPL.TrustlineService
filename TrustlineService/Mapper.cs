@@ -4,7 +4,7 @@ namespace XRPL.TrustlineService
 {
     public static class Mapper
     {
-        public static IEnumerable<TrustlineInfo> Map(this TrustlinesServerInfo response)
+        public static IEnumerable<TrustlineInfo> Map(this TrustlinesServerResponse response)
             => response.issuers.Values.SelectMany(
             i => i.tokens?.Select(
                 t => new TrustlineInfo()

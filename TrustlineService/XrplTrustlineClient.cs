@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 
 using XRPL.TrustlineService.Domain;
+using XRPL.TrustlineService.Domain.Xls20;
 
 namespace XRPL.TrustlineService
 {
@@ -11,10 +12,58 @@ namespace XRPL.TrustlineService
         {
         }
         /// <summary> get all trustlines info </summary>
-        /// <returns><seealso cref="TrustlinesServerInfo"/></returns>
-        public async Task<TrustlinesServerInfo> GetKnownTrustlines()
+        /// <returns><seealso cref="TrustlinesServerResponse"/></returns>
+        public async Task<TrustlinesServerResponse> GetKnownTrustlines(CancellationToken Cancel = default)
         {
-            var response = await GetAsync<TrustlinesServerInfo>("api/v1/tokens");
+            var response = await GetAsync<TrustlinesServerResponse>("api/v1/tokens", Cancel);
+            return response;
+        }
+        /// <summary> get all XLS20 NFT info </summary>
+        /// <returns><seealso cref="Xls20NftServiceResponse"/></returns>
+        public async Task<Xls20NftServiceResponse> GetXls20NFT(CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<Xls20NftServiceResponse>("api/v1/xls20-nfts", Cancel);
+            return response;
+        }
+        /// <summary> get all Issuer NFT info </summary>
+        /// <returns><seealso cref="IssuerXls20NftResponse"/></returns>
+        public async Task<IssuerXls20NftResponse> GetIssuerNFT(string Issuer, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<Dictionary<string,dynamic>>($"api/v1/xls20-nfts/issuer/{Issuer}", Cancel);
+            var IssuerInfo = new IssuerXls20NftResponse();
+            if (response.Count > 5)
+                throw new ArgumentException("Unknown field type");
+
+            foreach (var key in response.Keys)
+            {
+                switch (key)
+                {
+                    case "ledger_index":
+                        IssuerInfo.LedgerIndex = response[key];
+                        break;
+                    case "ledger_hash":
+                        IssuerInfo.LedgerHash = response[key];
+                        break;
+                    case "ledger_close":
+                        IssuerInfo.LedgerClose = response[key];
+                        break;
+                    case "ledger_close_ms":
+                        IssuerInfo.LedgerCloseMs = response[key];
+                        break;
+                    default:
+                        IssuerInfo.IssuerInfo = new IssuerXls20Nft() { Issuer = key, NFTs = JsonConvert.DeserializeObject<List<Xls20Nft>>($"{response[key]}") };
+                        break;
+
+                }
+            }
+
+            return IssuerInfo;
+        }
+        /// <summary> get all Issuer NFT info </summary>
+        /// <returns><seealso cref="Xls20NftResponse"/></returns>
+        public async Task<Xls20NftResponse> GetNftInfoById(string NftId, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<Xls20NftResponse>($"api/v1/xls20-nfts/nft/{NftId}", Cancel);
             return response;
         }
     }
