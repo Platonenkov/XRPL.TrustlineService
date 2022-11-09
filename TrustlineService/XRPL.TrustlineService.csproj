@@ -7,12 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>1.0.0.1</Version>
-    <PackageReleaseNotes>Xrpl trustline database from xrpl service</PackageReleaseNotes>
+    <Version>1.0.1.0</Version>
+    <PackageReleaseNotes>XLS20 nfts</PackageReleaseNotes>
     <SourceRevisionId>
       ^build_date$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))
     </SourceRevisionId>
-    <Description>This project will help you download trustline database</Description>
+    <Description>This project will help you download XRPL trustline database, NFT database and other info from xrpl service</Description>
     <PackageProjectUrl>https://github.com/Platonenkov/XRPL.TrustlineService</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Platonenkov/XRPL.TrustlineService</RepositoryUrl>
     <Copyright>https://github.com/Platonenkov</Copyright>

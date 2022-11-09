@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace XRPL.TrustlineService
 {
@@ -47,6 +48,7 @@ namespace XRPL.TrustlineService
             if (response.StatusCode == HttpStatusCode.NotFound || !response.IsSuccessStatusCode) return default;
 
             var data = await response.Content.ReadAsStringAsync(cancellationToken: Cancel);
+
             return string.IsNullOrWhiteSpace(data) ? default : JsonConvert.DeserializeObject<TEntity>(data,serializerSettings);
         }
 
