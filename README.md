@@ -5,7 +5,7 @@ XRPL Trustline service
 ### This client uses the [XRPL service](https://xrpl.services) database 
 ```C#
 XrplTrustlineClient trust = new XrplTrustlineClient();                             //create client
-TrustlinesServerInfo res = await trust.GetKnownTrustlines();                       //download tustlines
+TrustlinesServerResponse res = await trust.GetKnownTrustlines();                       //download tustlines
 IEnumerable<TrustlineInfo> trustlines = res.Map();                                 // Map to IEnumerable<TrustlineInfo>
 var nfts = await trust.GetXls20NFT();   //download nfts database
 var issuer_nfts = await trust.GetIssuerNFT("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj");  //download issuer nfts
