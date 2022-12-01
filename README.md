@@ -1,6 +1,6 @@
 # XRPL.TrustlineService
 XRPL Trustline service
-```Install-Package XRPL.TrustlineService -Version 1.0.1```
+```Install-Package XRPL.TrustlineService -Version 1.0.2```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
 ```C#
