@@ -64,7 +64,7 @@ namespace XRPL.TrustlineService
 
             return IssuerInfo;
         }
-        /// <summary> get all Issuer NFT info </summary>
+        /// <summary> get all Issuer taxon (collections) </summary>
         /// <returns><seealso cref="Xls20TaxonResponse"/></returns>
         public async Task<Xls20TaxonResponse> GetIssuerTaxon(string Issuer, CancellationToken Cancel = default)
         {
@@ -98,7 +98,7 @@ namespace XRPL.TrustlineService
 
             return IssuerInfo;
         }
-        /// <summary> get all Issuer NFT info </summary>
+        /// <summary> get NFT info </summary>
         /// <returns><seealso cref="Xls20NftResponse"/></returns>
         public async Task<Xls20NftResponse> GetNftInfoById(string NftId, CancellationToken Cancel = default)
         {
