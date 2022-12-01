@@ -24,15 +24,17 @@ Console.WriteLine(
         );
 Console.WriteLine();
 
-var nfts = await trust.GetXls20NFT();   //download nfts database
-var nfts_issuers = nfts.nfts.Count;
-Console.WriteLine($"{nfts_issuers} NFT issuers");
-Console.WriteLine();
+//var nfts = await trust.GetXls20NFT();   //download nfts database
+//var nfts_issuers = nfts.nfts.Count;
+//Console.WriteLine($"{nfts_issuers} NFT issuers");
+//Console.WriteLine();
 
-var issuer_taxon = await trust.GetIssuerTaxon("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj");  //download issuer taxon
+var issuer_taxon = await trust.GetIssuerTaxon("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer taxon
+Console.WriteLine($"{issuer_taxon.Issuer} has {issuer_taxon.Taxon.Count} collections");
+var collections = (await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD")).IssuerInfo.NFTs.GroupBy(c=>c.Taxon).ToArray();
 foreach (var t in issuer_taxon.Taxon)
 {
-    var issuer_nfts = await trust.GetIssuerNFT("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj",t);  //download issuer nfts
+    var issuer_nfts = await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD", t);  //download issuer nfts
     Console.WriteLine($"{t} collection: count = {issuer_nfts.IssuerInfo.NFTs.Count}");
 }
 

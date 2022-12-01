@@ -90,6 +90,7 @@ namespace XRPL.TrustlineService
                         IssuerInfo.LedgerCloseMs = response[key];
                         break;
                     default:
+                        IssuerInfo.Issuer = key;
                         IssuerInfo.Taxon = JsonConvert.DeserializeObject<List<uint>>($"{response[key]}");
                         break;
 
