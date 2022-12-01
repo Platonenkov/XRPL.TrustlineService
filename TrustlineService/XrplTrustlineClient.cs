@@ -27,9 +27,14 @@ namespace XRPL.TrustlineService
         }
         /// <summary> get all Issuer NFT info </summary>
         /// <returns><seealso cref="IssuerXls20NftResponse"/></returns>
-        public async Task<IssuerXls20NftResponse> GetIssuerNFT(string Issuer, CancellationToken Cancel = default)
+        public async Task<IssuerXls20NftResponse> GetIssuerNFT(string Issuer,uint? Taxon = null, CancellationToken Cancel = default)
         {
-            var response = await GetAsync<Dictionary<string,dynamic>>($"api/v1/xls20-nfts/issuer/{Issuer}", Cancel);
+            var address = Issuer;
+            if (Taxon is not null)
+            {
+                address += $"/taxon/{Taxon}";
+            }
+            var response = await GetAsync<Dictionary<string,dynamic>>($"api/v1/xls20-nfts/issuer/{address}", Cancel);
             var IssuerInfo = new IssuerXls20NftResponse();
             if (response.Count > 5)
                 throw new ArgumentException("Unknown field type");
@@ -59,7 +64,42 @@ namespace XRPL.TrustlineService
 
             return IssuerInfo;
         }
-        /// <summary> get all Issuer NFT info </summary>
+        /// <summary> get all Issuer taxon (collections) </summary>
+        /// <returns><seealso cref="Xls20TaxonResponse"/></returns>
+        public async Task<Xls20TaxonResponse> GetIssuerTaxon(string Issuer, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<Dictionary<string,dynamic>>($"api/v1/xls20-nfts/taxon/{Issuer}", Cancel);
+            var IssuerInfo = new Xls20TaxonResponse();
+            if (response.Count > 5)
+                throw new ArgumentException("Unknown field type");
+
+            foreach (var key in response.Keys)
+            {
+                switch (key)
+                {
+                    case "ledger_index":
+                        IssuerInfo.LedgerIndex = response[key];
+                        break;
+                    case "ledger_hash":
+                        IssuerInfo.LedgerHash = response[key];
+                        break;
+                    case "ledger_close":
+                        IssuerInfo.LedgerClose = response[key];
+                        break;
+                    case "ledger_close_ms":
+                        IssuerInfo.LedgerCloseMs = response[key];
+                        break;
+                    default:
+                        IssuerInfo.Issuer = key;
+                        IssuerInfo.Taxon = JsonConvert.DeserializeObject<List<uint>>($"{response[key]}");
+                        break;
+
+                }
+            }
+
+            return IssuerInfo;
+        }
+        /// <summary> get NFT info </summary>
         /// <returns><seealso cref="Xls20NftResponse"/></returns>
         public async Task<Xls20NftResponse> GetNftInfoById(string NftId, CancellationToken Cancel = default)
         {
