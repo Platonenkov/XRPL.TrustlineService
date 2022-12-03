@@ -31,11 +31,11 @@ XrplTrustlineClient trust = new XrplTrustlineClient(); //create client
 
 var AllNFTIssuer = await trust.GetAllNFTIssuer();  //download nft issuers
 var IssuerNFT = await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer taxon
-var Xls20NFT = await trust.GetXls20NFT();  //download issuer taxon
+//var Xls20NFT = await trust.GetXls20NFT();  //download issuer taxon
 var IssuerTaxon = await trust.GetIssuerTaxon("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer taxon
 var NftInfoById = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F3177161ED3CCDCB21EE07C59000025BD");  //download issuer taxon
 var KnownTrustlines = await trust.GetKnownTrustlines();  //download issuer taxon
-
+var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens).ToArray();
 Console.WriteLine();
 //Console.WriteLine($"{IssuerTaxon.Data.Issuer} has {IssuerTaxon.Data.Taxon.Count} collections");
 //var collections = (await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD")).Data.NFTs.GroupBy(c=>c.Taxon).ToArray();
