@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using XRPL.TrustlineService.Domain;
 
 namespace XRPL.TrustlineService
 {
@@ -42,14 +43,15 @@ namespace XRPL.TrustlineService
         /// <param name="url">адрес</param>
         /// <param name="Cancel">Признак отмены асинхронной операции</param>
         /// <returns></returns>
-        protected async Task<TEntity> GetAsync<TEntity>(string url, CancellationToken Cancel = default)
+        protected async Task<TEntity> GetAsync<TEntity>(string url, CancellationToken Cancel = default) where TEntity : IResponse, new()
         {
             var response = await _Client.GetAsync(url, Cancel);
-            if (response.StatusCode == HttpStatusCode.NotFound || !response.IsSuccessStatusCode) return default;
-
+            if (response.StatusCode == HttpStatusCode.NotFound || !response.IsSuccessStatusCode) return new TEntity(){Response = response};
+            
             var data = await response.Content.ReadAsStringAsync(cancellationToken: Cancel);
-
-            return string.IsNullOrWhiteSpace(data) ? default : JsonConvert.DeserializeObject<TEntity>(data,serializerSettings);
+            var result = string.IsNullOrWhiteSpace(data) ? new TEntity() : JsonConvert.DeserializeObject<TEntity>(data, serializerSettings);
+            result.Response = response;
+            return result;
         }
 
         /// <summary> Post </summary>

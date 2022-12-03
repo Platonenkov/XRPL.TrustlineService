@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace XRPL.TrustlineService.Domain.Xls20
 {
-    public class Xls20NftResponse
+    public class Xls20NftIssuers
     {
-        public string nftokenid { get; set; }
-        public Xls20Nft nft { get; set; }
+        public List<string> issuers { get; set; }
     }
 }

@@ -1,23 +1,18 @@
 ﻿using Newtonsoft.Json;
 
-using System.Globalization;
-
 namespace XRPL.TrustlineService.Domain
 {
-    public class BaseServerResponse
+    public class BaseServerResponse<T>: IResponse
     {
-        [JsonProperty("ledger_hash")]
-        public string LedgerHash { get; set; }
+        public HttpResponseMessage Response { get; set; }
+        [JsonProperty("info")]
+        public ServerInfo Info { get; set; }
+        [JsonProperty("data")]
+        public T Data { get; set; }
+    }
 
-        [JsonProperty("ledger_index")]
-        public long LedgerIndex { get; set; }
-
-        [JsonProperty("ledger_close")]
-        public string LedgerClose { get; set; }
-        [JsonProperty("ledger_close_ms")]
-        public long LedgerCloseMs { get; set; }
-
-        public DateTime LedgerDate => DateTime.ParseExact(LedgerClose, "yyyy-MMM-dd HH:mm:ss.000000000 UTC", CultureInfo.InvariantCulture);
-
+    public interface IResponse
+    {
+        public HttpResponseMessage Response { get; set; }
     }
 }
