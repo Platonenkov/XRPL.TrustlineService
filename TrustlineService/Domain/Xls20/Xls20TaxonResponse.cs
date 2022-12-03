@@ -1,13 +1,17 @@
-﻿namespace XRPL.TrustlineService.Domain.Xls20;
+﻿using Newtonsoft.Json;
 
-public class Xls20TaxonResponse : BaseServerResponse
+namespace XRPL.TrustlineService.Domain.Xls20;
+
+public class Xls20TaxonResponse/* : BaseServerResponse*/
 {
     /// <summary>
     /// NFT issuer
     /// </summary>
+    [JsonProperty("issuer")]
     public string Issuer { get; set; }
     /// <summary>
     /// NFT Taxon (collection)
     /// </summary>
-    public List<uint> Taxon { get; set; }
+    [JsonProperty("taxons")]
+    public List<uint> Taxons { get; set; }
 }
