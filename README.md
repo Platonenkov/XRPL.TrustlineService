@@ -1,6 +1,6 @@
 # XRPL.TrustlineService
 XRPL Trustline service
-```Install-Package XRPL.TrustlineService -Version 1.0.2```
+```Install-Package XRPL.TrustlineService -Version 1.0.3.1```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
 ```C#
@@ -14,7 +14,7 @@ var nft_info = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F31771
 
 available points:
 * `var lines = avait client.GetKnownTrustlines()` - all trustlines
-* `var nfts = await client.GetXls20NFT()` - all NFTs
+* `var AllNFTIssuer = await trust.GetAllNFTIssuer()` - all NFTs Issuers
 * `var issuer_nfts = await client.GetIssuerTaxon(issuer)` - all taxon for current issuer
 * `var issuer_nft = await client.GetIssuerNFT(issuer, taxon)` - NFTs for current issuer, possible filter by taxon (collections)
 * `var nft_info = await client.GetNftInfoById(NFTokenID)` - current nft info
