@@ -15,7 +15,7 @@ namespace XRPL.TrustlineService
         /// <returns><seealso cref="TrustlinesServerResponse"/></returns>
         public async Task<TrustlinesServerResponse> GetKnownTrustlines(CancellationToken Cancel = default)
         {
-            var response = await GetAsync<TrustlinesServerResponse>("api/v{ApiVersion}/tokens", Cancel);
+            var response = await GetAsync<TrustlinesServerResponse>($"api/v{ApiVersion}/tokens", Cancel);
             return response;
         }
         ///// <summary> get all XLS20 NFT info </summary>
@@ -53,6 +53,12 @@ namespace XRPL.TrustlineService
         public async Task<BaseServerResponse<Xls20NftResponse>> GetNftInfoById(string NftId, CancellationToken Cancel = default)
         {
             var response = await GetAsync<BaseServerResponse<Xls20NftResponse>>($"api/v{ApiVersion}/xls20-nfts/nft/{NftId}", Cancel);
+            return response;
+        }
+        /// <summary> get AccountNFTs </summary>
+        public async Task<BaseServerResponse<AccountXls20Nft>> GetAccountNFTs(string account, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<AccountXls20Nft>>($"api/v{ApiVersion}/xls20-nfts/owner/{account}", Cancel);
             return response;
         }
     }
