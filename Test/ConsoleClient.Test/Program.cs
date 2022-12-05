@@ -29,12 +29,13 @@ XrplTrustlineClient trust = new XrplTrustlineClient(); //create client
 //Console.WriteLine($"{nfts_issuers} NFT issuers");
 //Console.WriteLine();
 
-var AllNFTIssuer = await trust.GetAllNFTIssuer();  //download nft issuers
-var IssuerNFT = await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer taxon
+var AllNFTIssuer = await trust.GetAllNFTIssuer();  //all nfts issuers
+var IssuerNFT = await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer nfts
+var AccountNFT = await trust.GetAccountNFTs("rLiooJRSKeiNfRJcDBUhu4rcjQjGLWqa4p");  //download account nfts
 //var Xls20NFT = await trust.GetXls20NFT();  //download issuer taxon
 var IssuerTaxon = await trust.GetIssuerTaxon("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer taxon
-var NftInfoById = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F3177161ED3CCDCB21EE07C59000025BD");  //download issuer taxon
-var KnownTrustlines = await trust.GetKnownTrustlines();  //download issuer taxon
+var NftInfoById = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F3177161ED3CCDCB21EE07C59000025BD");  //NFT info by ID
+var KnownTrustlines = await trust.GetKnownTrustlines();  //download trustlines
 var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens).ToArray();
 Console.WriteLine();
 //Console.WriteLine($"{IssuerTaxon.Data.Issuer} has {IssuerTaxon.Data.Taxon.Count} collections");

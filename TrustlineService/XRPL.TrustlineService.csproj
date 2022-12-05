@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>1.0.3.1</Version>
-    <PackageReleaseNotes>XLS20 nfts</PackageReleaseNotes>
+    <Version>1.0.4.0</Version>
+    <PackageReleaseNotes>Account nfts point</PackageReleaseNotes>
     <SourceRevisionId>
       ^build_date$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))
     </SourceRevisionId>
