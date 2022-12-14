@@ -7,8 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>1.0.4.0</Version>
-    <PackageReleaseNotes>Account nfts point</PackageReleaseNotes>
+    <Version>1.1.0.0</Version>
+    <PackageReleaseNotes>NFT offers point</PackageReleaseNotes>
     <SourceRevisionId>
       ^build_date$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))
     </SourceRevisionId>
