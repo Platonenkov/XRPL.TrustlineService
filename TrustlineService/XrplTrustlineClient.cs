@@ -1,4 +1,5 @@
 ﻿using XRPL.TrustlineService.Domain;
+using XRPL.TrustlineService.Domain.NFTsOffers;
 using XRPL.TrustlineService.Domain.Xls20;
 
 namespace XRPL.TrustlineService
@@ -8,7 +9,7 @@ namespace XRPL.TrustlineService
     public class XrplTrustlineClient : BaseClient
     {
         public int ApiVersion { get; set; } = 1;
-        public XrplTrustlineClient():base("https://api.xrpldata.com/")
+        public XrplTrustlineClient() : base("https://api.xrpldata.com/")
         {
         }
         /// <summary> get all trustlines info </summary>
@@ -32,7 +33,7 @@ namespace XRPL.TrustlineService
             return response;
         }
         /// <summary> get all Issuer NFT info </summary>
-        public async Task<BaseServerResponse<IssuerXls20Nft>> GetIssuerNFT(string Issuer,uint? Taxon = null, CancellationToken Cancel = default)
+        public async Task<BaseServerResponse<IssuerXls20Nft>> GetIssuerNFT(string Issuer, uint? Taxon = null, CancellationToken Cancel = default)
         {
             var address = Issuer;
             if (Taxon is not null)
@@ -59,6 +60,35 @@ namespace XRPL.TrustlineService
         public async Task<BaseServerResponse<AccountXls20Nft>> GetAccountNFTs(string account, CancellationToken Cancel = default)
         {
             var response = await GetAsync<BaseServerResponse<AccountXls20Nft>>($"api/v{ApiVersion}/xls20-nfts/owner/{account}", Cancel);
+            return response;
+        }
+        /// <summary> get offers for nft by issuer  and taxon</summary>
+        public async Task<BaseServerResponse<IssuerOffers>> GetIssuerNFTsOffers(string Issuer, uint? Taxon = null, CancellationToken Cancel = default)
+        {
+            var address = Issuer;
+            if (Taxon is not null)
+            {
+                address += $"/taxon/{Taxon}";
+            }
+            var response = await GetAsync<BaseServerResponse<IssuerOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/issuer/{address}", Cancel);
+            return response;
+        }
+        /// <summary> Get all offers for NFTs owned by specific account</summary>
+        public async Task<BaseServerResponse<AccountNFTsOffers>> GetAccountNFTsOffers(string Account, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<AccountNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/owner/{Account}", Cancel);
+            return response;
+        }
+        /// <summary> Get all offers for a single NFT</summary>
+        public async Task<BaseServerResponse<NFTokenOffers>> GetNFTokenIDOffers(string NFTokenID, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<NFTokenOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/nft/{NFTokenID}", Cancel);
+            return response;
+        }
+        /// <summary> get a specific offer by its ID</summary>
+        public async Task<BaseServerResponse<NFTOfferInfo>> GetNFTOfferInfo(string NFTOfferID, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<NFTOfferInfo>>($"api/v{ApiVersion}/xls20-nfts/offer/id/{NFTOfferID}", Cancel);
             return response;
         }
     }
