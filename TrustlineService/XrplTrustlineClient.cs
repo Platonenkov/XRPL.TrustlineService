@@ -1,5 +1,6 @@
 ﻿using XRPL.TrustlineService.Domain;
 using XRPL.TrustlineService.Domain.NFTsOffers;
+using XRPL.TrustlineService.Domain.Statistics;
 using XRPL.TrustlineService.Domain.Xls20;
 
 namespace XRPL.TrustlineService
@@ -19,12 +20,9 @@ namespace XRPL.TrustlineService
             var response = await GetAsync<TrustlinesServerResponse>($"api/v{ApiVersion}/tokens", Cancel);
             return response;
         }
-        ///// <summary> get all XLS20 NFT info </summary>
-        //public async Task<BaseServerResponse<List<IssuerXls20Nft>>> GetXls20NFT(CancellationToken Cancel = default)
-        //{
-        //    var response = await GetAsync<BaseServerResponse<List<IssuerXls20Nft>>>("api/v{ApiVersion}/xls20-nfts", Cancel);
-        //    return response;
-        //}
+
+        #region NFT methods
+
         /// <summary> Returns an array of XRPL accounts which have currently issued NFTs on the XRP Ledger. </summary>
         public async Task<BaseServerResponse<Xls20NftIssuers>> GetAllNFTIssuer(CancellationToken Cancel = default)
         {
@@ -62,6 +60,11 @@ namespace XRPL.TrustlineService
             var response = await GetAsync<BaseServerResponse<AccountXls20Nft>>($"api/v{ApiVersion}/xls20-nfts/owner/{account}", Cancel);
             return response;
         }
+
+        #endregion
+
+        #region Offer methods
+
         /// <summary> get offers for nft by issuer  and taxon</summary>
         public async Task<BaseServerResponse<IssuerOffers>> GetIssuerNFTsOffers(string Issuer, uint? Taxon = null, CancellationToken Cancel = default)
         {
@@ -74,9 +77,21 @@ namespace XRPL.TrustlineService
             return response;
         }
         /// <summary> Get all offers for NFTs owned by specific account</summary>
-        public async Task<BaseServerResponse<AccountNFTsOffers>> GetAccountNFTsOffers(string Account, CancellationToken Cancel = default)
+        public async Task<BaseServerResponse<AccountNFTsOffers>> GetNFTsOffersForAccount(string Account, CancellationToken Cancel = default)
         {
-            var response = await GetAsync<BaseServerResponse<AccountNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/owner/{Account}", Cancel);
+            var response = await GetAsync<BaseServerResponse<AccountNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/nftowner/{Account}", Cancel);
+            return response;
+        }
+        /// <summary> Get all NFT offers owned by specific account</summary>
+        public async Task<BaseServerResponse<AccountOffersForNFTs>> GetAccountNFTsOffers(string Account, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<AccountOffersForNFTs>>($"api/v{ApiVersion}/xls20-nfts/offers/offerowner/{Account}", Cancel);
+            return response;
+        }
+        /// <summary> The Offer Destination Account which you want to get the Offers for.</summary>
+        public async Task<BaseServerResponse<DestinationNFTsOffers>> GetDestinationNFTsOffers(string Account, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<DestinationNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/offerdestination/{Account}", Cancel);
             return response;
         }
         /// <summary> Get all offers for a single NFT</summary>
@@ -91,6 +106,47 @@ namespace XRPL.TrustlineService
             var response = await GetAsync<BaseServerResponse<NFTOfferInfo>>($"api/v{ApiVersion}/xls20-nfts/offer/id/{NFTOfferID}", Cancel);
             return response;
         }
+
+        #endregion
+
+        #region Statistic methods
+        /// <summary>
+        /// Get stats about all NFTs from specific issuer.<br/>
+        /// THIS API ENDPOINT EXCLUDES:<br/>
+        ///- EXPIRED BUY OR SELL OFFERS<br/>
+        ///- BUY OR SELL OFFERS WITH AMOUNT = 0<br/>
+        ///- SELL OFFERS WHERE THE OFFER OWNER IS *NOT* THE NFT OWNER<br/>
+        /// Returns an object containing live statistics about the issuer's NFTs<br/> 
+        /// floor holds values of the lowest sell offers for various currencies with an amount > 0 which are placed across ALL Market Places or without Destination(open market)<br/>
+        /// open_market holds stats about all offers WITHOUT a Destination set<br/>
+        /// market_places holds stats for NFTs which have one of the MarketPlaces set as Destination
+        /// </summary>
+        public async Task<BaseServerResponse<CollectionNFTsStatats>> GetIssuerNFTsStats(string issuer, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<CollectionNFTsStatats>>($"api/v{ApiVersion}/xls20-nfts/stats/issuer/{issuer}", Cancel);
+            return response;
+        }
+
+        /// <summary>
+        /// Get stats about specific NFTs from specific issuer with the given Taxon.<br/>
+        /// THIS API ENDPOINT EXCLUDES:<br/>
+        ///- EXPIRED BUY OR SELL OFFERS<br/>
+        ///- BUY OR SELL OFFERS WITH AMOUNT = 0<br/>
+        ///- SELL OFFERS WHERE THE OFFER OWNER IS *NOT* THE NFT OWNER<br/>
+        /// Returns an object containing live statistics about the issuer's NFTs<br/> 
+        /// floor holds values of the lowest sell offers for various currencies with an amount > 0 which are placed across ALL Market Places or without Destination(open market)<br/>
+        /// open_market holds stats about all offers WITHOUT a Destination set<br/>
+        /// market_places holds stats for NFTs which have one of the MarketPlaces set as Destination
+        /// </summary>
+        public async Task<BaseServerResponse<CollectionNFTsStatats>> GetCollectionStats(string issuer, long Taxon, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<CollectionNFTsStatats>>($"api/v{ApiVersion}/xls20-nfts/stats/issuer/{issuer}/taxon/{Taxon}", Cancel);
+            return response;
+        }
+
+
+
+        #endregion
     }
 
 

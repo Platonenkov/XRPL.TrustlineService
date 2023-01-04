@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net5.0;</TargetFrameworks>
+    <TargetFrameworks>net6.0;net5.0;net7.0;</TargetFrameworks>
     <ImplicitUsings>enable</ImplicitUsings>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup>
-    <Version>1.1.0.0</Version>
-    <PackageReleaseNotes>NFT offers point</PackageReleaseNotes>
+    <Version>1.2.0.0</Version>
+    <PackageReleaseNotes>Statistics for NFTs point</PackageReleaseNotes>
     <SourceRevisionId>
       ^build_date$([System.DateTime]::UtcNow.ToString("yyyy-MM-ddTHH:mm:ss:fffZ"))
     </SourceRevisionId>
