@@ -48,7 +48,7 @@ namespace XRPL.TrustlineService
             var response = await _Client.GetAsync(url, Cancel);
             if (response.StatusCode == HttpStatusCode.NotFound || !response.IsSuccessStatusCode) return new TEntity(){Response = response};
             
-            var data = await response.Content.ReadAsStringAsync(cancellationToken: Cancel);
+            var data = await response.Content.ReadAsStringAsync();
             var result = string.IsNullOrWhiteSpace(data) ? new TEntity() : JsonConvert.DeserializeObject<TEntity>(data, serializerSettings);
             result.Response = response;
             return result;

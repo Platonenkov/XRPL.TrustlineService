@@ -13,14 +13,7 @@ namespace XRPL.TrustlineService.Converters
     /// <summary> currency json converter </summary>
     internal class CurrencyConverter : JsonConverter
     {
-        /// <summary>
-        /// write  <see cref="Currency"/>  to json object
-        /// </summary>
-        /// <param name="writer">writer</param>
-        /// <param name="value"> <see cref="Currency"/> value</param>
-        /// <param name="serializer">json serializer</param>
-        /// <exception cref="NotSupportedException">Cannot write this object type</exception>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
             if (value is ServiceCurrency currency)
             {
@@ -39,14 +32,7 @@ namespace XRPL.TrustlineService.Converters
                 throw new NotSupportedException("Cannot write this object type");
             }
         }
-        /// <summary> read  <see cref="Currency"/>  from json object </summary>
-        /// <param name="reader">json reader</param>
-        /// <param name="objectType">object type</param>
-        /// <param name="existingValue">object value</param>
-        /// <param name="serializer">json serializer</param>
-        /// <returns><see cref="Currency"/></returns>
-        /// <exception cref="NotSupportedException">Cannot convert value</exception>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue,
             JsonSerializer serializer)
         {
             return reader.TokenType switch

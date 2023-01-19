@@ -5,13 +5,16 @@ namespace XRPL.TrustlineService;
 
 internal static class ExtensionHelpers
 {
-    public static string ToHex(this string input)
+    internal static string ToHex(this string input)
     {
         var bytes = Encoding.UTF8.GetBytes(input);
-        return Convert.ToHexString(bytes);
+        string hex = BitConverter.ToString(bytes);
+        var res = hex.Replace("-", string.Empty);
+        return res;
+        //return Convert.ToHexString(bytes);
     }
 
-    public static string FromHexString(this string input)
+    internal static string FromHexString(this string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return null;

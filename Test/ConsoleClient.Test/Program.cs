@@ -4,7 +4,7 @@
 XrplTrustlineClient trust = new XrplTrustlineClient(); //create client
 
 var KnownTrustlines = await trust.GetKnownTrustlines();  //download trustlines
-var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens).ToArray();
+var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens!).ToArray();
 
 var AllNFTIssuer = await trust.GetAllNFTIssuer();  //all nfts issuers
 var IssuerNFT = await trust.GetIssuerNFT("rpqqyZXhowA6kb3eQKqRGA3GxbjzZFfMAD");  //download issuer nfts
@@ -21,6 +21,7 @@ var destination_nfts_offers2 = await trust.GetDestinationNFTsOffers("rLiooJRSKei
 
 var nft_offers = await trust.GetNFTokenIDOffers("000827106CD2CBB743BE141A0FE7EA1F3177161ED3CCDCB21EE07C59000025BD");
 var nft_offer_info = await trust.GetNFTOfferInfo("2AA3FD4A61C4F968E40B1B49DB61281BD8CDE3674E8B8FECF255ECF6C9F64719");
+var AllAccountNFTsOffers = await trust.GetAllAccountNFTsOffers("rLiooJRSKeiNfRJcDBUhu4rcjQjGLWqa4p");
 
 
 var statistics1 = await trust.GetIssuerNFTsStats("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj");

@@ -13,6 +13,6 @@ namespace XRPL.TrustlineService.Domain.NFTsOffers
         public string OfferID { get; set; }
         public string Owner { get; set; }
         public string Destination { get; set; }
-        public ulong Expiration { get; set; }
+        public ulong? Expiration { get; set; }
     }
 }
