@@ -94,16 +94,22 @@ namespace XRPL.TrustlineService
             var response = await GetAsync<BaseServerResponse<DestinationNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/offerdestination/{Account}", Cancel);
             return response;
         }
-        /// <summary> Get all offers for a single NFT</summary>
-        public async Task<BaseServerResponse<NFTokenOffers>> GetNFTokenIDOffers(string NFTokenID, CancellationToken Cancel = default)
+        /// <summary> get all relevant offers for a specific account</summary>
+        public async Task<BaseServerResponse<AllAccountNFTsOffers>> GetAllAccountNFTsOffers(string account, CancellationToken Cancel = default)
         {
-            var response = await GetAsync<BaseServerResponse<NFTokenOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/nft/{NFTokenID}", Cancel);
+            var response = await GetAsync<BaseServerResponse<AllAccountNFTsOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/all/account/{account}", Cancel);
             return response;
         }
         /// <summary> get a specific offer by its ID</summary>
         public async Task<BaseServerResponse<NFTOfferInfo>> GetNFTOfferInfo(string NFTOfferID, CancellationToken Cancel = default)
         {
             var response = await GetAsync<BaseServerResponse<NFTOfferInfo>>($"api/v{ApiVersion}/xls20-nfts/offer/id/{NFTOfferID}", Cancel);
+            return response;
+        }
+        /// <summary> Get all offers for a single NFT</summary>
+        public async Task<BaseServerResponse<NFTokenOffers>> GetNFTokenIDOffers(string NFTokenID, CancellationToken Cancel = default)
+        {
+            var response = await GetAsync<BaseServerResponse<NFTokenOffers>>($"api/v{ApiVersion}/xls20-nfts/offers/nft/{NFTokenID}", Cancel);
             return response;
         }
 

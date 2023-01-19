@@ -1,6 +1,6 @@
 # XRPL.TrustlineService
 XRPL Trustline service
-```Install-Package XRPL.TrustlineService -Version 1.2.0.0```
+```Install-Package XRPL.TrustlineService -Version 1.3.0.0```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
 ### API documentation https://api.xrpldata.com/docs
@@ -34,6 +34,7 @@ var nft_info = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F31771
 * `var destination_nfts_offers2 = await trust.GetDestinationNFTsOffers("rLiooJRSKeiNfRJcDBUhu4rcjQjGLWqa4p");` The Offer Destination Account which you want to get the Offers for.
 * `var nft_offers = await trust.GetNFTokenIDOffers("000827106CD2CBB743BE141A0FE7EA1F3177161ED3CCDCB21EE07C59000025BD");` get all offers for a single NFT
 * `var nft_offer_info = await trust.GetNFTOfferInfo("2AA3FD4A61C4F968E40B1B49DB61281BD8CDE3674E8B8FECF255ECF6C9F64719");` get a specific offer by its ID
+* `var AllAccountNFTsOffers = await trust.GetAllAccountNFTsOffers("rLiooJRSKeiNfRJcDBUhu4rcjQjGLWqa4p");` get all relevant offers for a specific account
 
 #### Statistics
 
