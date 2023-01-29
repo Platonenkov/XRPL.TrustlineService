@@ -31,6 +31,8 @@ namespace XRPL.TrustlineService
         /// <returns></returns>
         protected async Task<TEntity> GetAsync<TEntity>(string url, CancellationToken Cancel = default) where TEntity : IResponse, new()
         {
+            Remaining -= 1;
+
             LastRequestDateTime = DateTime.Now;
             var response = await _Client.GetAsync(url, Cancel);
 
@@ -51,6 +53,13 @@ namespace XRPL.TrustlineService
                 Limit = limit_count;
             }
 
+            if (response.StatusCode.ToString() == "TooManyRequests")
+            {
+                if (!await CheckLimit(Cancel))
+                    return new TEntity() { Response = response };
+
+                return await GetAsync<TEntity>(url, Cancel);
+            }
             if (response.StatusCode == HttpStatusCode.NotFound || !response.IsSuccessStatusCode) return new TEntity() { Response = response };
 
             var data = await response.Content.ReadAsStringAsync();
@@ -155,7 +164,7 @@ namespace XRPL.TrustlineService
 
         async Task<bool> CheckLimit(CancellationToken Cancel)
         {
-            if (Remaining == 0)
+            if (Remaining <= 0)
             {
                 if (WaitWhenLimit && Reset is { } sec and > 0)
                 {
