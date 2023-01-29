@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Diagnostics;
+using Newtonsoft.Json;
 
 using System.Net.Http.Json;
 using System.Net;
@@ -108,7 +109,7 @@ namespace XRPL.TrustlineService
                     State =>
                     {
                         Reset -= 1;
-                        Console.Title = $"{Reset}";
+                        Debug.WriteLine($"{Reset}");
                         if (Reset <= 0)
                         {
                             timer = null;
@@ -171,7 +172,7 @@ namespace XRPL.TrustlineService
                     OnWaitAction?.Invoke($"Limit: {Limit} per Minute;{Environment.NewLine}"
                                          + $"Available number of requests: {Remaining};{Environment.NewLine}"
                                          + $"Reset through {Reset} sec.");
-                    Console.WriteLine("Wait");
+                    Debug.WriteLine("Wait");
                     await Task.Delay(TimeSpan.FromSeconds(sec + 1), Cancel);
                     await CheckLimit(Cancel);
                 }
