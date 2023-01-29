@@ -13,7 +13,7 @@ namespace XRPL.TrustlineService
 {
 
     /// <summary> client to connect to <a>https://api.xrpldata.com/</a></summary>
-    public class XrplTrustlineClient
+    public class XrplTrustlineClient: ITrustlineService
     {
         #region Base
 
