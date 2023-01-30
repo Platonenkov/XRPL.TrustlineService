@@ -151,7 +151,7 @@ namespace XRPL.TrustlineService
             _Client.DefaultRequestHeaders.Accept.Clear();
             if (!string.IsNullOrWhiteSpace(apiKey))
             {
-                _Client.DefaultRequestHeaders.Add("x-api-key", ApiKey);
+                _Client.DefaultRequestHeaders.Add("x-api-key", apiKey);
                 ApiKey = apiKey;
             }
 
