@@ -6,7 +6,7 @@ using XRPL.TrustlineService;
 using XRPL.TrustlineService.Domain;
 
 
-XrplTrustlineClient trust = new XrplTrustlineClient(true, "abcd-abcd-0000-abcd-0123abcdabcd"); //create client
+XrplTrustlineClient trust = new XrplTrustlineClient(true, "be909d9f-2c44-41d5-9797-78d10b26eac5-xrpldaddy-test"); //create client
 trust.OnWaitAction += Console.WriteLine;
 //var KnownTrustlines = await trust.GetKnownTrustlines();  //download trustlines
 //var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens!).ToArray();
