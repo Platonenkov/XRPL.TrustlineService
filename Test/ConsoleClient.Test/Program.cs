@@ -1,15 +1,22 @@
-﻿using System.Collections.Specialized;
-using System.Text;
-using Newtonsoft.Json;
+﻿using XRPL.TrustlineService;
+using XRPL.TrustlineService.Domain.NFTsOffers;
 
-using XRPL.TrustlineService;
-using XRPL.TrustlineService.Domain;
+var api_key = "";
+XrplFundedClient funded = new XrplFundedClient(true, api_key); //create client
+funded.OnWaitAction += Console.WriteLine;
+var funded_offers = await funded.CheckFundedNFTsOffer(new FundedOffersRequest(new List<string>()
+{
+    "FD9516647477692B95F39DD30E516A5C62E2C953C12A56B5501EC46EFC129296",
+    "C4F4D3500D99F4D2DED94A4982200A7521B02559733088D91760C221FB76A1A8"
+}));
+var funded_offer = await funded.CheckFundedNFTsOffer("FD9516647477692B95F39DD30E516A5C62E2C953C12A56B5501EC46EFC129296");
 
 
-XrplTrustlineClient trust = new XrplTrustlineClient(true, "be909d9f-2c44-41d5-9797-78d10b26eac5-xrpldaddy-test"); //create client
+XrplTrustlineClient trust = new XrplTrustlineClient(true, api_key); //create client
 trust.OnWaitAction += Console.WriteLine;
-//var KnownTrustlines = await trust.GetKnownTrustlines();  //download trustlines
-//var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens!).ToArray();
+
+var KnownTrustlines = await trust.GetKnownTrustlines();  //download trustlines
+var lines = KnownTrustlines.issuers.SelectMany(c => c.Value.tokens!).ToArray();
 while (true)
 {
     var AllNFTIssuer = await trust.GetAllNFTIssuer();  //all nfts issuers
