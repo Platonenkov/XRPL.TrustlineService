@@ -1,8 +1,10 @@
 # XRPL.TrustlineService
 XRPL Trustline service
-```Install-Package XRPL.TrustlineService -Version 1.3.0.0```
+```Install-Package XRPL.TrustlineService -Version 1.5.0.0```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
+
+### You can take api key from [nixerFFM](https://twitter.com/nixerFFM) or in discord `nixerFFM#8400` to increase the number of requests or access closed points
 ### API documentation https://api.xrpldata.com/docs
 ```C#
 XrplTrustlineClient trust = new XrplTrustlineClient();                             //create client
