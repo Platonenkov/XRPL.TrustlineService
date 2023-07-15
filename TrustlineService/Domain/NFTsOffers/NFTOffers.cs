@@ -6,6 +6,8 @@ public class NFTOffers
 {
     public string NFTokenID { get; set; }
     public string NFTokenOwner { get; set; }
+    public string URI { get; set; }
+    public string URI_valid => URI.FromHexString();
     [JsonProperty("buy")]
     public List<NFTOffer> Buy { get; set; }
     [JsonProperty("sell")]
