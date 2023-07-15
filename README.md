@@ -1,8 +1,10 @@
 # XRPL.TrustlineService
 XRPL Trustline service
-```Install-Package XRPL.TrustlineService -Version 1.3.0.0```
+```Install-Package XRPL.TrustlineService -Version 1.5.0.0```
 
 ### This client uses the [XRPL service](https://xrpl.services) database 
+
+### You can take api key from [nixerFFM](https://twitter.com/nixerFFM) or in discord `nixerFFM#8400` to increase the number of requests or access closed points
 ### API documentation https://api.xrpldata.com/docs
 ```C#
 XrplTrustlineClient trust = new XrplTrustlineClient();                             //create client
@@ -40,6 +42,19 @@ var nft_info = await trust.GetNftInfoById("000827106CD2CBB743BE141A0FE7EA1F31771
 
 * `var statistics1 = await trust.GetIssuerNFTsStats("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj");` Get stats about all NFTs from specific issuer.
 * `var statistics2 = await trust.GetCollectionStats("rwvQWhjpUncjEbhsD2V9tv4YpKXjfH5RDj",1);` Get stats about specific NFTs from specific issuer with the given Taxon.
+
+#### Funded offers
+### THIS API ENDPOINT IS ONLY ACCESSIBLE VIA API KEY!
+`XrplFundedClient funded = new XrplFundedClient(true, api_key);`
+* CheckFundedNFTsOffer
+```C#
+var funded_offers = await funded.CheckFundedNFTsOffer(new FundedOffersRequest(new List<string>()
+{
+    "FD9516647477692B95F39DD30E516A5C62E2C953C12A56B5501EC46EFC129296",
+    "C4F4D3500D99F4D2DED94A4982200A7521B02559733088D91760C221FB76A1A8"
+}));
+```
+* `var funded_offer = await funded.CheckFundedNFTsOffer("FD9516647477692B95F39DD30E516A5C62E2C953C12A56B5501EC46EFC129296");`
 
 [Use test project for example](https://github.com/Platonenkov/XRPL.TrustlineService/tree/dev/Test/ConsoleClient.Test)
 
